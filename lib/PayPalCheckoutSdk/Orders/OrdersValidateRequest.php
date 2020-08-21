@@ -3,10 +3,11 @@
 namespace PayPalCheckoutSdk\Orders;
 
 use PayPalCheckoutSdk\Core\Request\HeaderClientMetadataIdTrait;
+use PayPalCheckoutSdk\Core\Request\HeaderPartnerAttributionIdTrait;
 
 class OrdersValidateRequest extends AbstractOrdersRequest
 {
-    use HeaderClientMetadataIdTrait;
+    use HeaderPartnerAttributionIdTrait, HeaderClientMetadataIdTrait;
 
     /**
      * @param string $orderId

@@ -1,42 +1,50 @@
 {
-    "name": "paypal/paypal-checkout-sdk",
-    "description": "PayPal's PHP SDK for Checkout REST APIs",
-    "keywords": ["paypal", "payments", "rest", "sdk", "orders", "checkout"],
-    "type": "library",
-    "license": "https://github.com/paypal/Checkout-PHP-SDK/blob/master/LICENSE",
-    "homepage": "http://github.com/paypal/Checkout-PHP-SDK/",
-    "authors": [
-        {
-            "name": "PayPal",
-            "homepage": "https://github.com/paypal/Checkout-PHP-SDK/contributors"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "PayPalCheckoutSdk\\": "lib/PayPalCheckoutSdk",
-            "Sample\\":"samples/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Test\\":"tests/"
-        }
-    },
-    "require": {
-        "paypal/paypalhttp": "1.0.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^5.7",
-        "symfony/var-dumper": "^3.4"
-    },
-    "scripts": {
-        "full": "phpunit --testsuite full --configuration phpunit.xml",
-        "unit": "phpunit --testsuite unit --configuration phpunit.xml",
-        "integration": "phpunit --testsuite integration --configuration phpunit.xml"
-    },
-    "config": {
-        "platform": {
-            "php": "5.6.0"
-        }
+  "name": "paypal/paypal-checkout-sdk",
+  "description": "PayPal's PHP SDK for Checkout REST APIs",
+  "keywords": [
+    "paypal",
+    "payments",
+    "rest",
+    "sdk",
+    "orders",
+    "checkout"
+  ],
+  "type": "library",
+  "license": "https://github.com/paypal/Checkout-PHP-SDK/blob/master/LICENSE",
+  "homepage": "http://github.com/paypal/Checkout-PHP-SDK/",
+  "authors": [
+    {
+      "name": "PayPal",
+      "homepage": "https://github.com/paypal/Checkout-PHP-SDK/contributors"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "PayPalCheckoutSdk\\": "lib/PayPalCheckoutSdk",
+      "Sample\\": "samples/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Test\\": "tests/"
+    }
+  },
+  "require": {
+    "paypal/paypalhttp": "1.0.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.7",
+    "symfony/var-dumper": "^3.4",
+    "ext-json": "*"
+  },
+  "scripts": {
+    "full": "phpunit --testsuite full --configuration phpunit.xml",
+    "unit": "phpunit --testsuite unit --configuration phpunit.xml",
+    "integration": "phpunit --testsuite integration --configuration phpunit.xml"
+  },
+  "config": {
+    "platform": {
+      "php": "5.6.0"
+    }
+  }
 }

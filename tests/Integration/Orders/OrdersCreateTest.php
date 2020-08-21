@@ -15,29 +15,27 @@ class OrdersCreateTest extends IntegrationTestCase
     public function testOrdersCreateRequest()
     {
         $response = $this->createOrdersCreateRequest($this->client);
-        $this->assertEquals(201, $response->statusCode);
-        $this->assertNotNull($response->result);
-
+        self::assertEquals(201, $response->statusCode);
+        self::assertNotNull($response->result);
         $createdOrder = $response->result;
-        $this->assertNotNull($createdOrder->id);
-        $this->assertNotNull($createdOrder->purchase_units);
-        $this->assertEquals(1, count($createdOrder->purchase_units));
-        $firstPurchaseUnit = $createdOrder->purchase_units[0];
-        $this->assertEquals("test_ref_id1", $firstPurchaseUnit->reference_id);
-        $this->assertEquals("USD", $firstPurchaseUnit->amount->currency_code);
-        $this->assertEquals("100.00", $firstPurchaseUnit->amount->value);
-
-        $this->assertNotNull($createdOrder->create_time);
-        $this->assertNotNull($createdOrder->links);
+        self::assertNotNull($createdOrder->id);
+        self::assertNotNull($createdOrder->purchase_units);
+        self::assertCount(1, $createdOrder->purchase_units);
+        self::assertNotNull($createdOrder->create_time);
+        self::assertNotNull($createdOrder->links);
         $foundApproveUrl = false;
         foreach ($createdOrder->links as $link) {
             if ("approve" === $link->rel) {
                 $foundApproveUrl = true;
-                $this->assertNotNull($link->href);
-                $this->assertEquals("GET", $link->method);
+                self::assertNotNull($link->href);
+                self::assertEquals("GET", $link->method);
             }
         }
-        $this->assertTrue($foundApproveUrl);
-        $this->assertEquals("CREATED", $createdOrder->status);
+        self::assertTrue($foundApproveUrl);
+        self::assertEquals("CREATED", $createdOrder->status);
+        $firstPurchaseUnit = $createdOrder->purchase_units[0];
+        self::assertEquals("test_ref_id1", $firstPurchaseUnit->reference_id);
+        self::assertEquals("GBP", $firstPurchaseUnit->amount->currency_code);
+        self::assertEquals("4.00", $firstPurchaseUnit->amount->value);
     }
 }
