@@ -63,8 +63,7 @@ trait OrdersCreateRequestTrait
      *
      * @return HttpResponse
      */
-    protected
-    function createOrdersCreateRequest($client)
+    protected function createOrdersCreateRequest($client)
     {
         $request = new OrdersCreateRequest();
         $request->prefer('return=representation');
