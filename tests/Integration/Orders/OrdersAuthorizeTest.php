@@ -4,20 +4,23 @@ namespace Test\Integration\Orders;
 
 use PayPalCheckoutSdk\Orders\OrdersAuthorizeRequest;
 use Test\IntegrationTestCase;
+use Test\Kit\OrdersRequestTrait;
 
-class OrdersAuthorizeRequestTest extends IntegrationTestCase
+class OrdersAuthorizeTest extends IntegrationTestCase
 {
+
+    use OrdersRequestTrait;
+
     /**
      * testOrdersAuthorizeRequest
      */
-    public function testOrdersAuthorizeRequest()
+    public function testOrdersAuthorizeRequest(): void
     {
-        $this->markTestSkipped("Need an approved Order ID to execute this test.");
+        self::markTestSkipped("Need an approved Order ID to execute this test.");
         $request = new OrdersAuthorizeRequest('ORDER-ID');
-        $request->body = $this->buildRequestBody();
 
         $response = $this->client->execute($request);
-        $this->assertEquals(201, $response->statusCode);
-        $this->assertNotNull($response->result);
+        self::assertEquals(201, $response->statusCode);
+        self::assertNotNull($response->result);
     }
 }

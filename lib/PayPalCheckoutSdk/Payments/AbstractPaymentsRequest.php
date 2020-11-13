@@ -9,7 +9,7 @@ abstract class AbstractPaymentsRequest extends AbstractHttpRequest
     /**
      * @inheritDoc
      */
-    protected function possiblePrefix()
+    protected function possiblePrefix(): string
     {
         return '/v2/payments';
     }

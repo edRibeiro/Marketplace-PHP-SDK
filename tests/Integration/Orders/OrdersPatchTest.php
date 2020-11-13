@@ -2,60 +2,65 @@
 
 namespace Test\Integration\Orders;
 
-use PayPalCheckoutSdk\Orders\OrdersPatchRequest;
 use PayPalCheckoutSdk\Orders\OrdersGetRequest;
+use PayPalCheckoutSdk\Orders\OrdersPatchRequest;
 use Test\IntegrationTestCase;
-use Test\Kit\OrdersCreateRequestTrait;
+use Test\Kit\OrdersRequestTrait;
 
 class OrdersPatchTest extends IntegrationTestCase
 {
-    use OrdersCreateRequestTrait;
+    use OrdersRequestTrait;
 
     /**
      * testOrdersPatchRequest
      */
-    public function testOrdersPatchRequest()
+    public function testOrdersPatchRequest(): void
     {
         $createdOrder = $this->createOrdersCreateRequest($this->client);
-        
-        $request = new OrdersPatchRequest($createdOrder->result->id);
+
+        /** @var object $createdOrderResult */
+        $createdOrderResult = $createdOrder->result;
+
+        $request = new OrdersPatchRequest($createdOrderResult->id);
         $request->body = $this->buildRequestBody();
         $response = $this->client->execute($request);
-        $this->assertEquals(204, $response->statusCode);
+        self::assertEquals(204, $response->statusCode);
 
-        $request = new OrdersGetRequest($createdOrder->result->id);
+        $request = new OrdersGetRequest($createdOrderResult->id);
         $response = $this->client->execute($request);
-        $this->assertEquals(200, $response->statusCode);
-        $this->assertNotNull($response->result);
+        self::assertEquals(200, $response->statusCode);
+        self::assertNotNull($response->result);
 
+        /** @var object $createdOrder */
         $createdOrder = $response->result;
-        $this->assertNotNull($createdOrder->id);
-        $this->assertNotNull($createdOrder->purchase_units);
-        $this->assertEquals(1, count($createdOrder->purchase_units));
-        $firstPurchaseUnit = $createdOrder->purchase_units[0];
-        $this->assertEquals('test_ref_id1', $firstPurchaseUnit->reference_id);
-        $this->assertEquals('USD', $firstPurchaseUnit->amount->currency_code);
-        $this->assertEquals('200.00', $firstPurchaseUnit->amount->value);
-        $this->assertEquals('added_description', $firstPurchaseUnit->description);
+        self::assertNotNull($createdOrder->id);
+        self::assertNotNull($createdOrder->purchase_units);
+        self::assertCount(1, $createdOrder->purchase_units);
+        self::assertNotNull($createdOrder->create_time);
+        self::assertNotNull($createdOrder->links);
 
-        $this->assertNotNull($createdOrder->create_time);
-        $this->assertNotNull($createdOrder->links);
+        $firstPurchaseUnit = $createdOrder->purchase_units[0];
+        self::assertEquals('test_ref_id1', $firstPurchaseUnit->reference_id);
+        self::assertEquals('USD', $firstPurchaseUnit->amount->currency_code);
+        self::assertEquals('200.00', $firstPurchaseUnit->amount->value);
+        self::assertEquals('added_description', $firstPurchaseUnit->description);
+
         $foundApproveUrl = false;
         foreach ($createdOrder->links as $link) {
             if ('approve' === $link->rel) {
                 $foundApproveUrl = true;
-                $this->assertNotNull($link->href);
-                $this->assertEquals('GET', $link->method);
+                self::assertNotNull($link->href);
+                self::assertEquals('GET', $link->method);
             }
         }
-        $this->assertTrue($foundApproveUrl);
-        $this->assertEquals('CREATED', $createdOrder->status);
+        self::assertTrue($foundApproveUrl);
+        self::assertEquals('CREATED', $createdOrder->status);
     }
 
     /**
      * @return array
      */
-    private function buildRequestBody()
+    private function buildRequestBody(): array
     {
         return [
             [
@@ -67,7 +72,7 @@ class OrdersPatchTest extends IntegrationTestCase
                 "op" => "replace",
                 "path" => "/purchase_units/@reference_id=='test_ref_id1'/amount",
                 "value" => [
-                    "currency_code" => "USD",
+                    "currency_code" => "GBP",
                     "value" => "200.00"
                 ]
             ]

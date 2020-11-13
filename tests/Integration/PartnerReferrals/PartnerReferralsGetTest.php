@@ -13,13 +13,13 @@ class PartnerReferralsGetTest extends IntegrationTestCase
     /**
      * testPartnerReferralsGetRequest
      */
-    public function testPartnerReferralsGetRequest()
+    public function testPartnerReferralsGetRequest(): void
     {
         self::markTestSkipped("Need an approved Partner ID & onboarded Merchant ID to execute this test.");
-        $request = new PartnerReferralsGetRequest(getenv('PARTNER_ID'), getenv('MERCHANT_ID'));
+        $request = new PartnerReferralsGetRequest('PARTNER-ID', 'MERCHANT-ID');
         $request->payPalPartnerAttributionId(getenv('BN_CODE'));
         $response = $this->client->execute($request);
-        print(json_encode($response));
+
         self::assertEquals(200, $response->statusCode);
         self::assertNotNull($response->result);
     }

@@ -1,10 +1,10 @@
 <?php
 
-namespace PayPalCheckoutSdk\Orders;
+namespace PayPalCheckoutSdk\Webhooks;
 
 use PayPalCheckoutSdk\Core\AbstractHttpRequest;
 
-abstract class AbstractOrdersRequest extends AbstractHttpRequest
+abstract class AbstractWebhookRequest extends AbstractHttpRequest
 {
 
     /**
@@ -12,6 +12,7 @@ abstract class AbstractOrdersRequest extends AbstractHttpRequest
      */
     protected function possiblePrefix(): string
     {
-        return '/v2/checkout/orders';
+        return '/v1/notifications/webhooks';
     }
+
 }

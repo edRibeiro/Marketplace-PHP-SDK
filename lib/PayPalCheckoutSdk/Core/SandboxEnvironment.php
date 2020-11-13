@@ -7,7 +7,7 @@ class SandboxEnvironment extends PayPalEnvironment
     /**
      * @inheritDoc
      */
-    public function baseUrl()
+    public function baseUrl(): string
     {
         return 'https://api.sandbox.paypal.com';
     }

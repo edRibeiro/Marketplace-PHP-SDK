@@ -8,7 +8,7 @@ class ProductionEnvironment extends PayPalEnvironment
     /**
      * @inheritDoc
      */
-    public function baseUrl()
+    public function baseUrl(): string
     {
         return 'https://api.paypal.com';
     }

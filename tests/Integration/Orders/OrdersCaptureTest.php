@@ -5,18 +5,18 @@ namespace Test\Integration\Orders;
 use PayPalCheckoutSdk\Orders\OrdersCaptureRequest;
 use Test\IntegrationTestCase;
 
-class OrdersCaptureRequestTest extends IntegrationTestCase
+class OrdersCaptureTest extends IntegrationTestCase
 {
     /**
      * testOrdersCaptureRequest
      */
-    public function testOrdersCaptureRequest()
+    public function testOrdersCaptureRequest(): void
     {
-        $this->markTestSkipped("Need an approved Order ID to execute this test.");
+        self::markTestSkipped("Need an approved Order ID to execute this test.");
         $request = new OrdersCaptureRequest('ORDER-ID');
-
         $response = $this->client->execute($request);
-        $this->assertEquals(201, $response->statusCode);
-        $this->assertNotNull($response->result);
+
+        self::assertEquals(201, $response->statusCode);
+        self::assertNotNull($response->result);
     }
 }

@@ -14,7 +14,7 @@ class PartnerReferralsGetRequest extends AbstractPartnerReferralsRequest
      * @param string $partnerId
      * @param string $merchantId
      */
-    public function __construct($partnerId, $merchantId)
+    public function __construct(string $partnerId, string $merchantId)
     {
         parent::__construct(
             $this->buildPathWithPlaceholders(
@@ -28,7 +28,7 @@ class PartnerReferralsGetRequest extends AbstractPartnerReferralsRequest
     /**
      * @inheritDoc
      */
-    protected function possiblePrefix()
+    protected function possiblePrefix(): string
     {
         return '/v1/customer/partners';
     }

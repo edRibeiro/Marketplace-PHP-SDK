@@ -12,7 +12,7 @@ class AuthorizationsCaptureRequest extends AbstractPaymentsRequest
     /**
      * @param string $authorizationId
      */
-    public function __construct($authorizationId)
+    public function __construct(string $authorizationId)
     {
         parent::__construct(
             $this->buildPathWithPlaceholders(

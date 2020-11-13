@@ -10,7 +10,7 @@ class AccessTokenTest extends UnitTestCase
     /**
      * testCreateAccessToken
      */
-    public function testCreateAccessToken()
+    public function testCreateAccessToken(): void
     {
         $token = 'exampleToken';
         $tokenType = 'exampleTokenType';
@@ -22,10 +22,10 @@ class AccessTokenTest extends UnitTestCase
             $expiresIn
         );
 
-        $this->assertInstanceOf(AccessToken::class, $accessToken);
-        $this->assertSame($token, $accessToken->getToken());
-        $this->assertSame($tokenType, $accessToken->getTokenType());
-        $this->assertSame($expiresIn, $accessToken->getExpiresIn());
-        $this->assertFalse($accessToken->isExpired());
+        self::assertInstanceOf(AccessToken::class, $accessToken);
+        self::assertSame($token, $accessToken->getToken());
+        self::assertSame($tokenType, $accessToken->getTokenType());
+        self::assertSame($expiresIn, $accessToken->getExpiresIn());
+        self::assertFalse($accessToken->isExpired());
     }
 }

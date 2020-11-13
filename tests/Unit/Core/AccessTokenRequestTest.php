@@ -11,36 +11,36 @@ class AccessTokenRequestTest extends UnitTestCase
     /**
      * testBuildAccessTokenRequestWithoutRefreshToken
      */
-    public function testBuildAccessTokenRequestWithoutRefreshToken()
+    public function testBuildAccessTokenRequestWithoutRefreshToken(): void
     {
         $accessTokenRequest = new AccessTokenRequest($this->createEnvironmentMock());
 
-        $this->assertSame('/v1/oauth2/token', $accessTokenRequest->path);
-        $this->assertSame('POST', $accessTokenRequest->verb);
+        self::assertSame('/v1/oauth2/token', $accessTokenRequest->path);
+        self::assertSame('POST', $accessTokenRequest->verb);
 
-        $this->assertSame('client_credentials', $accessTokenRequest->body['grant_type']);
-        $this->assertNotSame('refresh_token', $accessTokenRequest->body['grant_type']);
+        self::assertSame('client_credentials', $accessTokenRequest->body['grant_type']);
+        self::assertNotSame('refresh_token', $accessTokenRequest->body['grant_type']);
 
-        $this->assertSame('application/x-www-form-urlencoded', $accessTokenRequest->headers['Content-Type']);
-        $this->assertSame('Basic '.self::ENV_MOCK_AUTHORIZATION_STRING, $accessTokenRequest->headers['Authorization']);
+        self::assertSame('application/x-www-form-urlencoded', $accessTokenRequest->headers['Content-Type']);
+        self::assertSame('Basic ' . self::ENV_MOCK_AUTHORIZATION_STRING, $accessTokenRequest->headers['Authorization']);
     }
 
     /**
      * testBuildAccessTokenRequestWithoutRefreshToken
      */
-    public function testBuildAccessTokenRequestWithRefreshToken()
+    public function testBuildAccessTokenRequestWithRefreshToken(): void
     {
         $refreshToken = 'exampleRefreshToken';
         $accessTokenRequest = new AccessTokenRequest($this->createEnvironmentMock(), $refreshToken);
 
-        $this->assertSame('/v1/oauth2/token', $accessTokenRequest->path);
-        $this->assertSame('POST', $accessTokenRequest->verb);
+        self::assertSame('/v1/oauth2/token', $accessTokenRequest->path);
+        self::assertSame('POST', $accessTokenRequest->verb);
 
-        $this->assertSame('refresh_token', $accessTokenRequest->body['grant_type']);
-        $this->assertSame($refreshToken, $accessTokenRequest->body['refresh_token']);
-        $this->assertNotSame('client_credentials', $accessTokenRequest->body['grant_type']);
+        self::assertSame('refresh_token', $accessTokenRequest->body['grant_type']);
+        self::assertSame($refreshToken, $accessTokenRequest->body['refresh_token']);
+        self::assertNotSame('client_credentials', $accessTokenRequest->body['grant_type']);
 
-        $this->assertSame('application/x-www-form-urlencoded', $accessTokenRequest->headers['Content-Type']);
-        $this->assertSame('Basic '.self::ENV_MOCK_AUTHORIZATION_STRING, $accessTokenRequest->headers['Authorization']);
+        self::assertSame('application/x-www-form-urlencoded', $accessTokenRequest->headers['Content-Type']);
+        self::assertSame('Basic ' . self::ENV_MOCK_AUTHORIZATION_STRING, $accessTokenRequest->headers['Authorization']);
     }
 }

@@ -2,15 +2,14 @@
 
 namespace PayPalCheckoutSdk\Core;
 
-use PayPalHttp\HttpRequest;
 use PayPalHttp\Injector;
 
 class GzipInjector implements Injector
 {
     /**
-     * @param HttpRequest $httpRequest
+     * @param $httpRequest
      */
-    public function inject($httpRequest)
+    public function inject($httpRequest): void
     {
         $httpRequest->headers['Accept-Encoding'] = 'gzip';
     }

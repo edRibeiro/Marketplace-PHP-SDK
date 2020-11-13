@@ -27,9 +27,9 @@ class AccessToken
     /**
      * @param string $token
      * @param string $tokenType
-     * @param int    $expiresIn
+     * @param int $expiresIn
      */
-    public function __construct($token, $tokenType, $expiresIn)
+    public function __construct(string $token, string $tokenType, int $expiresIn)
     {
         $this->token = $token;
         $this->tokenType = $tokenType;
@@ -40,7 +40,7 @@ class AccessToken
     /**
      * @return bool
      */
-    public function isExpired()
+    public function isExpired(): bool
     {
         return time() >= $this->createDate + $this->expiresIn;
     }
@@ -48,7 +48,7 @@ class AccessToken
     /**
      * @return string
      */
-    public function getToken()
+    public function getToken(): string
     {
         return $this->token;
     }
@@ -56,7 +56,7 @@ class AccessToken
     /**
      * @return string
      */
-    public function getTokenType()
+    public function getTokenType(): string
     {
         return $this->tokenType;
     }
@@ -64,7 +64,7 @@ class AccessToken
     /**
      * @return int
      */
-    public function getExpiresIn()
+    public function getExpiresIn(): int
     {
         return $this->expiresIn;
     }

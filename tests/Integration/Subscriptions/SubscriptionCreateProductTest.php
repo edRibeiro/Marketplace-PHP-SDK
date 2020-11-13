@@ -5,23 +5,23 @@ namespace Test\Integration\Subscriptions;
 use Test\IntegrationTestCase;
 use Test\Kit\SubscriptionsRequestTrait;
 
-class SubscriptionCreatePlanTest extends IntegrationTestCase
+class SubscriptionCreateProductTest extends IntegrationTestCase
 {
     use SubscriptionsRequestTrait;
 
     /**
-     * testSubscriptionCreatePlanRequest
+     * testSubscriptionCreateProductRequest
      */
-    public function testSubscriptionCreatePlanRequest(): void
+    public function testSubscriptionCreateProductRequest(): void
     {
-        $response = $this->createSubscriptionCreatePlanRequest($this->client);
+        $response = $this->createSubscriptionCreateProductRequest($this->client);
         self::assertEquals(201, $response->statusCode);
         self::assertNotNull($response->result);
 
         /** @var object $product */
         $product = $response->result;
         self::assertNotNull($product->links);
-        self::assertCount(3, $product->links);
+        self::assertCount(2, $product->links);
 
         $firstHATEOAS = $product->links[0];
         self::assertNotNull($firstHATEOAS->href);
@@ -33,4 +33,5 @@ class SubscriptionCreatePlanTest extends IntegrationTestCase
         self::assertEquals("edit", $secondHATEOAS->rel);
         self::assertEquals("PATCH", $secondHATEOAS->method);
     }
+
 }

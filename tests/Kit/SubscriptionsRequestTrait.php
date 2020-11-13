@@ -7,7 +7,7 @@ use PayPalCheckoutSdk\Subscriptions\SubscriptionCreateProductRequest;
 use PayPalHttp\HttpClient;
 use PayPalHttp\HttpResponse;
 
-trait SubscriptionsCreateRequestTrait
+trait SubscriptionsRequestTrait
 {
 
     /**

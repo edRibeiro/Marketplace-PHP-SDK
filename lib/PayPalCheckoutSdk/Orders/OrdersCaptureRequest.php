@@ -14,7 +14,7 @@ class OrdersCaptureRequest extends AbstractOrdersRequest
     /**
      * @param string $orderId
      */
-    public function __construct($orderId)
+    public function __construct(string $orderId)
     {
         parent::__construct(
             $this->buildPathWithPlaceholders(

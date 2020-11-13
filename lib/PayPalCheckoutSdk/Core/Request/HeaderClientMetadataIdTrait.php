@@ -7,7 +7,7 @@ trait HeaderClientMetadataIdTrait
     /**
      * @param string $payPalClientMetadataId
      */
-    public function payPalClientMetadataId($payPalClientMetadataId)
+    public function payPalClientMetadataId(string $payPalClientMetadataId): void
     {
         $this->headers["PayPal-Client-Metadata-Id"] = $payPalClientMetadataId;
     }

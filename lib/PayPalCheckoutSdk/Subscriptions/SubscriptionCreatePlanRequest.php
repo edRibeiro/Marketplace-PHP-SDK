@@ -18,7 +18,7 @@ class SubscriptionCreatePlanRequest extends AbstractSubscriptionRequest
     /**
      * @inheritDoc
      */
-    protected function possiblePrefix()
+    protected function possiblePrefix(): string
     {
         return '/v1/billing/plans';
     }

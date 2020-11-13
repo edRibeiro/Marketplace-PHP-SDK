@@ -6,13 +6,13 @@ use PayPalCheckoutSdk\Orders\OrdersCreateRequest;
 use PayPalHttp\HttpClient;
 use PayPalHttp\HttpResponse;
 
-trait OrdersCreateRequestTrait
+trait OrdersRequestTrait
 {
 
     /**
      * @return array
      */
-    private function buildRequestBodyForOrdersCreateRequest()
+    private function buildRequestBodyForOrdersCreateRequest(): array
     {
         return [
             'intent' => 'CAPTURE',
@@ -63,7 +63,7 @@ trait OrdersCreateRequestTrait
      *
      * @return HttpResponse
      */
-    protected function createOrdersCreateRequest($client)
+    protected function createOrdersCreateRequest(HttpClient $client): HttpResponse
     {
         $request = new OrdersCreateRequest();
         $request->prefer('return=representation');

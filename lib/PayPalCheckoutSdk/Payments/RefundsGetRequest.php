@@ -7,7 +7,7 @@ class RefundsGetRequest extends AbstractPaymentsRequest
     /**
      * @param string $refundId
      */
-    public function __construct($refundId)
+    public function __construct(string $refundId)
     {
         parent::__construct(
             $this->buildPathWithPlaceholders(

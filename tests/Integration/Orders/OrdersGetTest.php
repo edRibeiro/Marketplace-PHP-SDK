@@ -4,43 +4,50 @@ namespace Test\Integration\Orders;
 
 use PayPalCheckoutSdk\Orders\OrdersGetRequest;
 use Test\IntegrationTestCase;
-use Test\Kit\OrdersCreateRequestTrait;
+use Test\Kit\OrdersRequestTrait;
 
 class OrdersGetTest extends IntegrationTestCase
 {
-    use OrdersCreateRequestTrait;
+    use OrdersRequestTrait;
 
     /**
      * testOrdersGetRequest
      */
-    public function testOrdersGetRequest()
+    public function testOrdersGetRequest(): void
     {
         $createdOrder = $this->createOrdersCreateRequest($this->client);
-        $request = new OrdersGetRequest($createdOrder->result->id);
+
+        /** @var object $createdOrderResult */
+        $createdOrderResult = $createdOrder->result;
+
+        $request = new OrdersGetRequest($createdOrderResult->id);
         $response = $this->client->execute($request);
-        $this->assertEquals(200, $response->statusCode);
-        $this->assertNotNull($response->result);
+        self::assertEquals(200, $response->statusCode);
+        self::assertNotNull($response->result);
 
+        /** @var object $createdOrder */
         $createdOrder = $response->result;
-        $this->assertNotNull($createdOrder->id);
-        $this->assertNotNull($createdOrder->purchase_units);
-        $this->assertEquals(1, count($createdOrder->purchase_units));
-        $firstPurchaseUnit = $createdOrder->purchase_units[0];
-        $this->assertEquals("test_ref_id1", $firstPurchaseUnit->reference_id);
-        $this->assertEquals("USD", $firstPurchaseUnit->amount->currency_code);
-        $this->assertEquals("100.00", $firstPurchaseUnit->amount->value);
+        self::assertNotNull($createdOrder->id);
+        self::assertNotNull($createdOrder->purchase_units);
+        self::assertCount(1, $createdOrder->purchase_units);
 
-        $this->assertNotNull($createdOrder->create_time);
-        $this->assertNotNull($createdOrder->links);
+        $firstPurchaseUnit = $createdOrder->purchase_units[0];
+        self::assertEquals("test_ref_id1", $firstPurchaseUnit->reference_id);
+        self::assertEquals("GBP", $firstPurchaseUnit->amount->currency_code);
+        self::assertEquals("4.00", $firstPurchaseUnit->amount->value);
+
+        self::assertNotNull($createdOrder->create_time);
+        self::assertNotNull($createdOrder->links);
+
         $foundApproveUrl = false;
         foreach ($createdOrder->links as $link) {
             if ("approve" === $link->rel) {
                 $foundApproveUrl = true;
-                $this->assertNotNull($link->href);
-                $this->assertEquals("GET", $link->method);
+                self::assertNotNull($link->href);
+                self::assertEquals("GET", $link->method);
             }
         }
-        $this->assertTrue($foundApproveUrl);
-        $this->assertEquals("CREATED", $createdOrder->status);
+        self::assertTrue($foundApproveUrl);
+        self::assertEquals("CREATED", $createdOrder->status);
     }
 }

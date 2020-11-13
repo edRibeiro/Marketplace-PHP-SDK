@@ -20,7 +20,7 @@ abstract class PayPalEnvironment implements Environment
      * @param string $clientId
      * @param string $clientSecret
      */
-    public function __construct($clientId, $clientSecret)
+    public function __construct(string $clientId, string $clientSecret)
     {
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
@@ -29,8 +29,8 @@ abstract class PayPalEnvironment implements Environment
     /**
      * @return string
      */
-    public function authorizationString()
+    public function authorizationString(): string
     {
-        return base64_encode($this->clientId.':'.$this->clientSecret);
+        return base64_encode($this->clientId . ':' . $this->clientSecret);
     }
 }

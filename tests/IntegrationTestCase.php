@@ -16,7 +16,7 @@ class IntegrationTestCase extends TestCase
     /**
      * @inheritDoc
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client = $this->initClient();
 
@@ -26,7 +26,7 @@ class IntegrationTestCase extends TestCase
     /**
      * @inheritDoc
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->client = null;
 
@@ -36,7 +36,7 @@ class IntegrationTestCase extends TestCase
     /**
      * @return PayPalHttpClient
      */
-    protected function initClient()
+    protected function initClient(): PayPalHttpClient
     {
         return new PayPalHttpClient($this->createSandboxEnvironment());
     }
@@ -44,10 +44,10 @@ class IntegrationTestCase extends TestCase
     /**
      * @return SandboxEnvironment
      */
-    private function createSandboxEnvironment()
+    private function createSandboxEnvironment(): SandboxEnvironment
     {
-        $clientId = getenv('CLIENT_ID') ?: '<<PAYPAL-CLIENT-ID>>';
-        $clientSecret = getenv('CLIENT_SECRET') ?: '<<PAYPAL-CLIENT-SECRET>>';
+        $clientId = getenv('CLIENT_ID') ?: 'PAYPAL-CLIENT-ID';
+        $clientSecret = getenv('CLIENT_SECRET') ?: 'PAYPAL-CLIENT-SECRET';
 
         return new SandboxEnvironment($clientId, $clientSecret);
     }

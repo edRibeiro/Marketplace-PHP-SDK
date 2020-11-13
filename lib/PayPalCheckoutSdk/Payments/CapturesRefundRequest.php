@@ -12,7 +12,7 @@ class CapturesRefundRequest extends AbstractPaymentsRequest
     /**
      * @param string $captureId
      */
-    public function __construct($captureId)
+    public function __construct(string $captureId)
     {
         parent::__construct(
             $this->buildPathWithPlaceholders(

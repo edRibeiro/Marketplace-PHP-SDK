@@ -1,34 +1,27 @@
 <?php
 
-namespace PayPalCheckoutSdk\Subscriptions;
+namespace PayPalCheckoutSdk\Webhooks;
 
 use PayPalCheckoutSdk\Core\Request\HeaderPartnerAttributionIdTrait;
 use PayPalCheckoutSdk\Core\Request\HeaderPreferTrait;
 use PayPalCheckoutSdk\Core\Request\HeaderRequestIdTrait;
 
-class SubscriptionGetProductRequest extends AbstractSubscriptionRequest
+class WebhookGetRequest extends AbstractWebhookRequest
 {
     use HeaderPartnerAttributionIdTrait, HeaderPreferTrait, HeaderRequestIdTrait;
 
     /**
-     * @param string $productId
+     * @param string $webhookId
      */
-    public function __construct(string $productId)
+    public function __construct(string $webhookId)
     {
         parent::__construct(
             $this->buildPathWithPlaceholders(
-                '/{product_id}?',
-                ['product_id' => $productId]
+                '/{webhook_id}?',
+                ['webhook_id' => $webhookId]
             ),
             'GET'
         );
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function possiblePrefix(): string
-    {
-        return '/v1/catalogs/products';
-    }
 }

@@ -6,11 +6,12 @@ use PayPalHttp\HttpRequest;
 
 abstract class AbstractHttpRequest extends HttpRequest
 {
+
     /**
      * @param string $path
      * @param string $verb
      */
-    public function __construct($path, $verb)
+    public function __construct(string $path, string $verb)
     {
         parent::__construct($this->createPathWithPossiblePrefix($path), $verb);
 
@@ -20,30 +21,28 @@ abstract class AbstractHttpRequest extends HttpRequest
     /**
      * @return string|null
      */
-    protected function possiblePrefix()
+    protected function possiblePrefix(): ?string
     {
         return null;
     }
 
     /**
      * @param string $path
-     * @param array  $parameter
-     *
+     * @param array $parameter
      * @return string
      */
-    protected function buildPathWithPlaceholders($path, $parameter)
+    protected function buildPathWithPlaceholders(string $path, array $parameter): string
     {
         foreach ($parameter as $search => $subject) {
-            $path = str_replace('{'.$search.'}', urlencode($subject), $path);
+            $path = str_replace('{' . $search . '}', urlencode($subject), $path);
         }
-
         return $path;
     }
 
     /**
      * @return void
      */
-    protected function addHeaderContentTypeJson()
+    protected function addHeaderContentTypeJson(): void
     {
         $this->headers["Content-Type"] = "application/json";
     }
@@ -53,10 +52,10 @@ abstract class AbstractHttpRequest extends HttpRequest
      *
      * @return string
      */
-    private function createPathWithPossiblePrefix($path)
+    private function createPathWithPossiblePrefix(string $path): string
     {
         if (!is_null($this->possiblePrefix())) {
-            return $this->possiblePrefix().$path;
+            return $this->possiblePrefix() . $path;
         }
 
         return $path;
