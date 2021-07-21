@@ -1,5 +1,5 @@
 {
-  "name": "edribeiro/marketplace-php-sdk",
+  "name": "edribeiro/paypal-marketplace-php-sdk",
   "description": "A fork from PayPal's PHP SDK for Checkout REST APIs",
   "keywords": [
     "paypal",
